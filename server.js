@@ -77,6 +77,13 @@ app.get('/products', async (req, res) => {
     }
 })
 
+app.post('/products', async (req, res) => {
+    const { product_name, category, price, stock_quantity} = req.body
+
+    await pool.query("INSERT INTO products (product_name, category, price, stock_quantity) VALUES($1, $2, $3, $4)",
+    [product_name, category, price, stock_quantity])
+})
+
 app.delete('/products/:id', (req, res) => {
     const {id} = req.params
     try {
